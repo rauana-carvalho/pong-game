@@ -1,4 +1,4 @@
-# 🏓 Jogo Pong
+# Jogo Pong
 
 **Uma versão simples e elegante do clássico jogo de Ping Pong, desenvolvida em Java com Swing!**
 
@@ -62,6 +62,7 @@
 
 ## Autoras
 
-[rauanacarvalho](https://github.com/rauanacarvalho)
+🍅 [Rauana Carvalho](https://github.com/rauanacarvalho) e 🍓 [Bruna Valoes](https://github.com/bruvaloes)
 
-⭐ Se gostou do projeto, não esqueça de dar uma estrela! ⭐
+
+Se gostou do projeto, não esqueça de dar uma estrela! ⭐
