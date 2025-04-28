@@ -38,7 +38,7 @@
 ### Tela Inicial
 
 - **ENTER**: Inicia a partida.
-- **Q**: Sai do jogo.
+- **ESC**: Sai do jogo.
 
 ### Durante o Jogo
 
