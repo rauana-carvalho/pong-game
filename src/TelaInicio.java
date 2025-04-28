@@ -31,26 +31,22 @@ public class TelaInicio extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     janela.iniciarPartida();
                 }
-                if (e.getKeyCode() == KeyEvent.VK_Q) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     System.exit(0);
                 }
             }
         });
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setOpaque(false);
+        JLabel credits = new JLabel("Créditos: Rauana e Bruna (⁠◍⁠•⁠ᴗ⁠•⁠◍⁠)");
+        credits.setFont(new Font("HelveticaNeue", Font.PLAIN, 11));
+        credits.setForeground(ColorPalette.PRIMARY_COLOR);
+        credits.setBorder(BorderFactory.createEmptyBorder(12, 12, 0, 0));
+        topPanel.add(credits, BorderLayout.WEST);
+        add(topPanel, BorderLayout.NORTH);
     }
 
     public void ganharFoco() {                     
         requestFocusInWindow();
-    }
-    
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(ColorPalette.PRIMARY_COLOR);
-        g.setFont(new Font("HelveticaNeue", Font.BOLD, 10));
-        String texto = "Feito por: Rauana e Bruna";
-        FontMetrics metrics = g.getFontMetrics();
-        int x = 10; // Margem à esquerda
-        int y = metrics.getAscent() + 10; // Pequena margem do topo
-        g.drawString(texto, x, y);
     }
 }
