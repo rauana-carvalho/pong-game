@@ -1,65 +1,62 @@
-package src;import java.awt.*;
+package src;
 
-import javax.sound.sampled.Clip;
+import java.awt.*;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 public class JanelaJogo extends JFrame {
 
-    private final CardLayout telas = new CardLayout();   
-    private final JPanel container = new JPanel(telas);  
-    private final TelaInicio telaInicio;                 
-    private final PainelJogo painel;  
-    private Clip startClip;
-    private javax.swing.Timer startTimer;  
-    
-    public PainelJogo getPainel(){
-        return painel;
+    private final CardLayout telas = new CardLayout();
+    private final JPanel     cont  = new JPanel(telas);
+    private final TelaInicio telaInicio;
+    private final PainelJogo painel;
+
+    private Clip  startClip;
+    private Timer startTimer;
+    private int   restanteMs;
+
+    public PainelJogo getPainel() { return painel; }
+
+    public JanelaJogo() {
+        telaInicio = new TelaInicio(this);
+        painel     = new PainelJogo(this);
+
+        cont.add(telaInicio, "inicio");
+        cont.add(painel,     "jogo");
+        telas.show(cont, "inicio");
+
+        add(cont);
+        setTitle("Jogo Pong (POO 2024.2)");
+        setResizable(false);
+        setBackground(ColorPalette.BACKGROUND_COLOR);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+        telaInicio.ganharFoco();
     }
 
-    JanelaJogo() {
-        telaInicio = new TelaInicio(this);               
-        painel      = new PainelJogo(this);                  
+    public void iniciarPartida() {
 
-        container.add(telaInicio, "inicio");             
-        container.add(painel,      "jogo");              
-        telas.show(container, "inicio");                 
-
-        this.add(container);                             
-
-        this.setTitle("Jogo Pong (POO 2024.2)");
-        this.setResizable(false);
-        this.setBackground(ColorPalette.BACKGROUND_COLOR);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
-
-        telaInicio.ganharFoco();                         
-    }
-
-    public void iniciarJogo() {                          
-        telas.show(container, "jogo");
-        painel.requestFocusInWindow();                   
-    }
-
-    public void iniciarPartida(){
         startClip = Som.tocarClip("/sons/start.wav");
-        int delay = (int)(startClip.getMicrosecondLength() / 1000);
+        int total = (int) (startClip.getMicrosecondLength() / 1000);
 
-        // 2) guardamos o Timer
-        startTimer = new javax.swing.Timer(delay, event -> {
-            event.hashCode();
-            getPainel().iniciarMovimento();
-        });
+        restanteMs = total;
+
+        startTimer = new Timer(total, e -> getPainel().iniciarMovimento());
         startTimer.setRepeats(false);
         startTimer.start();
 
-        iniciarJogo();
+        telas.show(cont, "jogo");
+        painel.requestFocusInWindow();
     }
-    
+
     public void pauseStartSequence() {
         if (startClip != null && startClip.isRunning()) {
             startClip.stop();
+            int decorrido = (int) (startClip.getMicrosecondPosition() / 1000);
+            restanteMs = Math.max(0, restanteMs - decorrido);
         }
         if (startTimer != null && startTimer.isRunning()) {
             startTimer.stop();
@@ -70,8 +67,13 @@ public class JanelaJogo extends JFrame {
         if (startClip != null) {
             startClip.start();
         }
-        if (startTimer != null) {
+        if (restanteMs > 0) {
+            startTimer = new Timer(restanteMs,
+                                   e -> getPainel().iniciarMovimento());
+            startTimer.setRepeats(false);
             startTimer.start();
+        } else {
+            getPainel().iniciarMovimento();
         }
     }
 }
