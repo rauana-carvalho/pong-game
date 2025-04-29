@@ -214,7 +214,7 @@ public class PainelJogo extends JPanel implements Runnable {
                 bola.setVelocidadeY(bola.getVelocidadeY() + (bola.getVelocidadeY() > 0 ? 1 : -1));
 
 
-                double maxY = Math.abs(bola.getVelocidadeX()) * 1.5;
+                double maxY = Math.abs(bola.getVelocidadeX()) *5.5;
                 if (Math.abs(bola.getVelocidadeY()) > maxY) {
                     bola.setVelocidadeY((int) (Math.signum(bola.getVelocidadeY()) * maxY));
                 }
