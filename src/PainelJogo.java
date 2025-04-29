@@ -7,6 +7,7 @@ import javax.swing.*;
 
 public class PainelJogo extends JPanel implements Runnable {
 
+    //--------------------------- constantes ---------------------------
     static final int LARGURA_JOGO = 800;
     static final int ALTURA_JOGO  = (int) (LARGURA_JOGO * 0.75);
     static final Dimension TAMANHO = new Dimension(LARGURA_JOGO, ALTURA_JOGO);
@@ -15,14 +16,17 @@ public class PainelJogo extends JPanel implements Runnable {
     static final int LARG_RAQUETE = 10;
     static final int ALT_RAQUETE  = 100;
 
+    //------------------------ estado de jogo -------------------------
     private boolean jogoIniciado = false;
     private boolean jogoPausado  = false;
 
     private final Thread threadJogo;
 
+    //--------------------------- desenho -----------------------------
     private Image imagem;
     private Graphics graficos;
 
+    //------------------------ composição -----------------------------
     private final JanelaJogo janela;
     private final Collection<ElementoJogo> elementos = new ArrayList<>();
     private final Pontuacao pontuacao;
@@ -31,6 +35,14 @@ public class PainelJogo extends JPanel implements Runnable {
     private Raquete  raquete1;
     private Raquete  raquete2;
 
+    //--------------- componentes do menu de pausa -------------------
+    private final JPanel pausePanel;
+    private final JLabel Paused;
+    private final JLabel Esc;
+    private final JLabel R;
+    private final JLabel Q;
+
+    //------------------------- construtor ----------------------------
     public PainelJogo(JanelaJogo janelaJogo) {
         this.janela = janelaJogo;
 
@@ -72,6 +84,46 @@ public class PainelJogo extends JPanel implements Runnable {
         add(pontuacao.getScoreLabel1());
         add(pontuacao.getScoreLabel2());
 
+        //------------------- painel de pausa ------------------------
+        pausePanel = new JPanel(null) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(255, 255, 255, 150));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        pausePanel.setBounds(0, 0, LARGURA_JOGO, ALTURA_JOGO);
+        pausePanel.setOpaque(false);
+        pausePanel.setVisible(false);
+
+        Paused = new JLabel("PAUSADO", SwingConstants.CENTER);
+        Esc    = new JLabel("Esc - continuar", SwingConstants.CENTER);
+        R      = new JLabel("R - reiniciar",   SwingConstants.CENTER);
+        Q      = new JLabel("Q - sair",        SwingConstants.CENTER);
+
+        Paused.setFont(new Font("HelveticaNeue", Font.BOLD, 40));
+        Esc.setFont   (new Font("HelveticaNeue", Font.PLAIN, 18));
+        R.setFont     (new Font("HelveticaNeue", Font.PLAIN, 18));
+        Q.setFont     (new Font("HelveticaNeue", Font.PLAIN, 18));
+
+        Paused.setForeground(ColorPalette.PRIMARY_COLOR);
+        Esc.setForeground   (ColorPalette.PRIMARY_COLOR);
+        R.setForeground     (ColorPalette.PRIMARY_COLOR);
+        Q.setForeground     (ColorPalette.PRIMARY_COLOR);
+
+        Paused.setBounds((LARGURA_JOGO / 2) - 100, (ALTURA_JOGO / 2) - 80, 200, 40);
+        Esc.setBounds   ((LARGURA_JOGO / 2) - 90,  (ALTURA_JOGO / 2) - 20, 180, 25);
+        R.setBounds     ((LARGURA_JOGO / 2) - 90,  (ALTURA_JOGO / 2) + 10, 180, 25);
+        Q.setBounds     ((LARGURA_JOGO / 2) - 90,  (ALTURA_JOGO / 2) + 40, 180, 25);
+
+        pausePanel.add(Paused);
+        pausePanel.add(Esc);
+        pausePanel.add(R);
+        pausePanel.add(Q);
+        add(pausePanel);
+        
+        //------------------------------------------------------------
+
         threadJogo = new Thread(this);
         threadJogo.start();
     }
@@ -80,9 +132,11 @@ public class PainelJogo extends JPanel implements Runnable {
         pontuacao.setNomes(p1, p2);
     }
 
+    //------------------- ciclo de partida --------------------
     private void reiniciarPartida() {
         pontuacao.reset();
         jogoPausado = false;
+        pausePanel.setVisible(false);
 
         bola.parar();
         bola.x = (LARGURA_JOGO - DIAM_BOLA) / 2;
@@ -114,6 +168,7 @@ public class PainelJogo extends JPanel implements Runnable {
         jogoIniciado = true;
     }
 
+    //------------------------------ draw -----------------------------
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -123,30 +178,13 @@ public class PainelJogo extends JPanel implements Runnable {
 
         elementos.forEach(e -> e.desenhar(graficos));
 
-        /* linha central (mantida em draw) */
         pontuacao.desenhar(graficos);
-
-        /* overlay de pausa */
-        if (jogoPausado) drawPauseOverlay(graficos);
 
         g.drawImage(imagem, 0, 0, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void drawPauseOverlay(Graphics g) {
-        g.setColor(new Color(255, 255, 255, 150));
-        g.fillRect(0, 0, LARGURA_JOGO, ALTURA_JOGO);
-
-        g.setColor(ColorPalette.PRIMARY_COLOR);
-        g.setFont(new Font("HelveticaNeue", Font.BOLD, 40));
-        g.drawString("PAUSADO", LARGURA_JOGO / 2 - 100, ALTURA_JOGO / 2 - 40);
-
-        g.setFont(new Font("HelveticaNeue", Font.PLAIN, 18));
-        g.drawString("Esc - continuar", LARGURA_JOGO / 2 - 90, ALTURA_JOGO / 2 + 10);
-        g.drawString("R - reiniciar",   LARGURA_JOGO / 2 - 90, ALTURA_JOGO / 2 + 40);
-        g.drawString("Q - sair",        LARGURA_JOGO / 2 - 90, ALTURA_JOGO / 2 + 70);
-    }
-
+    //--------------------------- lógica -----------------------------
     private void mover() {
         elementos.stream()
                  .filter(e -> e instanceof Movable)
@@ -174,6 +212,7 @@ public class PainelJogo extends JPanel implements Runnable {
 
                 bola.setVelocidadeX(-bola.getVelocidadeX());
                 bola.setVelocidadeY(bola.getVelocidadeY() + (bola.getVelocidadeY() > 0 ? 1 : -1));
+
 
                 double maxY = Math.abs(bola.getVelocidadeX()) * 1.5;
                 if (Math.abs(bola.getVelocidadeY()) > maxY) {
@@ -205,10 +244,11 @@ public class PainelJogo extends JPanel implements Runnable {
         }
     }
 
+    //------------------------- game-loop -----------------------------
     @Override
     public void run() {
         long ultimo = System.nanoTime();
-        final double ns   = 1_000_000_000.0 / 60.0;
+        final double ns   = 1_000_000_000.0 / 65.0;
         double delta = 0;
 
         while (true) {
@@ -227,6 +267,7 @@ public class PainelJogo extends JPanel implements Runnable {
         }
     }
 
+    //---------------------- controle de teclado ---------------------
     private class AL extends KeyAdapter {
 
         @Override
@@ -235,6 +276,7 @@ public class PainelJogo extends JPanel implements Runnable {
 
             if (kc == KeyEvent.VK_ESCAPE) {
                 jogoPausado = !jogoPausado;
+                pausePanel.setVisible(jogoPausado);
                 if (jogoPausado) {
                     janela.pauseStartSequence();
                     Som.pauseBackground();

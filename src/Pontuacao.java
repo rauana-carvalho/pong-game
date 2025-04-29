@@ -31,7 +31,9 @@ public class Pontuacao {
         this.nomeJogador2 = n2;
 
         nomeLabel1  = new JLabel(n1, SwingConstants.CENTER);
-        nomeLabel2  = new JLabel(n2, SwingConstants.CENTER);
+        nomeLabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        nomeLabel2 = new JLabel(n2, SwingConstants.CENTER);
+        nomeLabel2.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
         scoreLabel1 = new JLabel("0", SwingConstants.CENTER);
         scoreLabel2 = new JLabel("0", SwingConstants.CENTER);
 
