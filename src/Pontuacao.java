@@ -5,6 +5,9 @@ public class Pontuacao extends Rectangle {
 
     static int LARGURA_JOGO;
     static int ALTURA_JOGO;
+
+    private static final int OFFSET_Y = 80;
+    
     int jogador1;
     int jogador2;
 
@@ -15,11 +18,11 @@ public class Pontuacao extends Rectangle {
 
     public void desenhar(Graphics g) {
         g.setColor(ColorPalette.PRIMARY_COLOR);
-        g.setFont(new Font("HelveticaNeue", Font.PLAIN, 60));
+        g.setFont(new Font("HelveticaNeue", Font.PLAIN, 50));
 
         g.drawLine(LARGURA_JOGO / 2, 0, LARGURA_JOGO / 2, ALTURA_JOGO);
 
-        g.drawString(String.valueOf(jogador1 / 10) + String.valueOf(jogador1 % 10), (LARGURA_JOGO / 2) - 85, 50);
+        g.drawString(String.valueOf(jogador1 / 10) + String.valueOf(jogador1 % 10), (LARGURA_JOGO / 2) - 85, OFFSET_Y);
         g.drawString(String.valueOf(jogador2 / 10) + String.valueOf(jogador2 % 10), (LARGURA_JOGO / 2) + 20, 50);
     }
 }

@@ -1,67 +1,38 @@
 package src;
-import java.awt.*;
-import java.awt.event.*;
-
-public class Raquete extends Rectangle {
-
-    int id;
-    int yVelocity;
-    int velocidade = 10;
-
-    Raquete(int x, int y, int largura, int altura, int id) {
-        super(x, y, largura, altura);
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+public class Raquete extends ElementoJogo implements Movable {
+    private final int id;
+    private int yVel = 0, velocidade = 10;
+    public Raquete(int x, int y, int w, int h, int id) {
+        super(x, y, w, h);
         this.id = id;
     }
-
     public void keyPressed(KeyEvent e) {
-        switch (id) {
-            case 1:
-                if (e.getKeyCode() == KeyEvent.VK_W) {
-                    setDirecaoY(-velocidade);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_S) {
-                    setDirecaoY(velocidade);
-                }
-                break;
-            case 2:
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    setDirecaoY(-velocidade);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    setDirecaoY(velocidade);
-                }
-                break;
+        if (id == 1) {
+            if (e.getKeyCode() == KeyEvent.VK_W) yVel = -velocidade;
+            if (e.getKeyCode() == KeyEvent.VK_S) yVel = velocidade;
+        } else {
+            if (e.getKeyCode() == KeyEvent.VK_UP) yVel = -velocidade;
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) yVel = velocidade;
         }
     }
-
     public void keyReleased(KeyEvent e) {
-        switch (id) {
-            case 1:
-                if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_S) {
-                    setDirecaoY(0);
-                }
-                break;
-            case 2:
-                if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    setDirecaoY(0);
-                }
-                break;
+        if ((id == 1 && (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_S)) ||
+            (id == 2 && (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN))) {
+            yVel = 0;
         }
     }
-
-    public void setDirecaoY(int direcaoY) {
-        yVelocity = direcaoY;
-    }
-
+    @Override
     public void mover() {
-        y = y + yVelocity;
+        y = Math.max(0, Math.min(y + yVel, PainelJogo.ALTURA_JOGO - height));
     }
-
+    @Override
+    public void atualizar() {
+    }
+    @Override
     public void desenhar(Graphics g) {
-        if (id == 1)
-            g.setColor(ColorPalette.PRIMARY_COLOR);
-        else
-            g.setColor(ColorPalette.PRIMARY_COLOR);
+        g.setColor(ColorPalette.PRIMARY_COLOR);
         g.fillRect(x, y, width, height);
     }
 }
