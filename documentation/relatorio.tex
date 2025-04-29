@@ -1,0 +1,118 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage[normalem]{ulem}
+\usepackage[lmargin=2cm, tmargin=2cm, rmargin=2cm, bmargin=2cm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{multicol}
+\usepackage{pgf,tikz,tkz-euclide,mathrsfs}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{shapes,backgrounds}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,dsfont,mathtools,blindtext}
+
+\usetikzlibrary{arrows,shapes,automata,petri,positioning,calc}
+
+\renewcommand{\contentsname}{Sumário}
+
+\title{relatório}
+\author{Bruna de Castro Pereira Valões, Rauana de Carvalho Bento}
+\date{24 de Abril de 2025}
+
+\usepackage{float}
+\begin{document}
+\pagenumbering{gobble}
+
+%CAPA CAPA CAPA CAPA 
+
+\begin{center}
+   \begin{tabular}{cc}
+    \multirow{3}*{\includegraphics[width=1.5cm]{UFPB_Logo.png}} & \textbf{\footnotesize UNIVERSIDADE FEDERAL DA PARAÍBA - UFPB} \\
+     & \textbf{ \footnotesize CENTRO DE INFORMÁTICA - CI} \\
+     & \textbf{ \footnotesize DEPARTAMENTO DE INFORMÁTICA - DI} \\
+   \end{tabular} 
+
+
+\vspace{5cm}
+\textbf{Programação Orientada a Objetos \\
+Prof Danielle Rousy \\
+Projeto do jogo Ping Pong em JAVA - Relatório}
+
+
+
+
+\vspace{6cm}
+\textbf{Bruna de Castro Pereira Valões\\ 20230102359 \\ Rauana de Carvalho Bento\\ 20230013212}
+
+
+
+\vspace{7cm}
+\textbf{JOÃO PESSOA - PB \\
+2025}
+
+\end{center}
+
+%CAPA CAPA CAPA CAPA 
+
+\newpage
+\pagenumbering{arabic}
+\thispagestyle{empty}
+\newpage
+
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+
+
+\section{Introdução}
+
+
+O projeto teve como objetivo a criação de uma versão personalizada do clássico jogo Pong, desenvolvida na linguagem Java. A ideia surgiu a partir do interesse em explorar conceitos gráficos que representassem um desafio técnico e prático ao mesmo tempo. \\
+ 
+A escolha desse tema também se deu pelo fato de que o desenvolvimento de jogos é uma aplicação envolvente e que permite explorar diversos conceitos da programação orientada a objetos.
+
+
+\section{Modelagem do Problema}
+
+A estrutura do projeto foi pensada utilizando princípios da programação orientada a objetos, com separação clara entre responsabilidades. O projeto conta com diversas classes que se comunicam entre si para compor a lógica e a interface gráfica do jogo. \\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Modelagem_Classes.png}
+    \caption{Diagrama de Classes do Projeto Pong em JAVA
+    }
+    \label{fig:enter-label}
+\end{figure}
+
+Durante o desenvolvimento do projeto, aplicamos diversos conceitos de orientação a objetos. O encapsulamento foi utilizado para proteger atributos sensíveis, com métodos get e set, como em Bola e Pontuação. \\
+
+A herança foi usada através da classe abstrata ElementoJogo, estendida por Bola e Raquete. \\
+
+O polimorfismo apareceu no tratamento uniforme dos elementos do jogo, utilizando a interface Movable para generalizar o comportamento de movimento. \\
+
+A classe ElementoJogo também ilustra o uso de classes abstratas, obrigando subclasses a implementar métodos essenciais. \\
+\section{Ferramentas Utilizadas} 
+
+Para o desenvolvimento do projeto foi utilizado principalmente o editor Visual Studio Code (VSCode), por ser leve, personalizável e com bom suporte para Java. \\
+
+O projeto foi desenvolvido utilizando a biblioteca Swing para criação da interface gráfica. A renderização dos elementos foi feita por meio da classe Graphics. Sons foram reproduzidos usando a API javax.sound.sampled. \\
+
+A organização visual foi facilitada por JPanel, JLabel e JFrame. Além disso, foi utilizado CardLayout para alternar entre a tela inicial e o jogo. 
+
+
+\section{Resultados e Considerações Finais}
+
+O maior desafio enfrentado durante o desenvolvimento foi lidar com a interface gráfica, uma vez que era uma área pouco familiar para os integrantes do grupo. Recorremos a tutoriais online e utilizamos dimensões e elementos visuais sugeridos por esses materiais, considerando que essa parte se aproxima bastante do desenvolvimento front-end, o que ainda é novidade para muitos de nós. \\
+
+Apesar disso, conseguimos avançar bastante na compreensão e uso dos componentes, além de utilizar ferramentas de depuração para testar o funcionamento da lógica do jogo. \\
+
+O projeto proporcionou um grande aprendizado, tanto em termos técnicos quanto conceituais. Trabalhar com Java em um contexto visual exigiu a aplicação real dos princípios da orientação a objetos, além de reforçar a importância da organização e modularização do código.
+
+
+\end{document}
