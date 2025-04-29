@@ -213,8 +213,7 @@ public class PainelJogo extends JPanel implements Runnable {
                 bola.setVelocidadeX(-bola.getVelocidadeX());
                 bola.setVelocidadeY(bola.getVelocidadeY() + (bola.getVelocidadeY() > 0 ? 1 : -1));
 
-
-                double maxY = Math.abs(bola.getVelocidadeX()) *5.5;
+                double maxY = Math.abs(bola.getVelocidadeX()) *4.5;
                 if (Math.abs(bola.getVelocidadeY()) > maxY) {
                     bola.setVelocidadeY((int) (Math.signum(bola.getVelocidadeY()) * maxY));
                 }
@@ -248,7 +247,7 @@ public class PainelJogo extends JPanel implements Runnable {
     @Override
     public void run() {
         long ultimo = System.nanoTime();
-        final double ns   = 1_000_000_000.0 / 65.0;
+        final double ns   = 1_000_000_000.0 / 70.0;
         double delta = 0;
 
         while (true) {
