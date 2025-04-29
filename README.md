@@ -2,6 +2,43 @@
 
 **Uma versão simples e elegante do clássico jogo de Ping Pong, desenvolvida em Java com Swing!**
 
+---
+
+## Estrutura do Projeto
+```
+JogoPong/               
+├── bin/                 # Arquivos compilados (.class)
+├── documentation/       
+│   ├── modelagem/       
+│   │   └── modelagem-de-classes.jpeg
+│   └── relatorio/       
+│       └── relatorio.pdf
+├── resources/           
+│   └── sons/            
+│       ├── gameover.wav
+│       ├── paddle.wav
+│       ├── score.wav
+│       ├── start.feio.wav
+│       ├── start.wav
+│       └── wall.wav
+├── src/                 
+│   ├── Bola.java
+│   ├── ColorPalette.java
+│   ├── ElementoJogo.java
+│   ├── Janel Jogo.java
+│   ├── JogoPong.java
+│   ├── Movable.java
+│   ├── PainelJogo.java
+│   ├── Pontuacao.java
+│   ├── Raquete.java
+│   ├── Som.java
+│   └── TelaInicio.java
+├── scripts/             # Scripts de compilação e execução
+│   └── run.sh
+├── .gitignore           # Arquivos e pastas ignorados pelo Git
+├── LICENSE              
+└── README.md   
+```
 
 ---
 
@@ -20,17 +57,14 @@
    cd pong-game
    ```
 2. **Compilação**
-   Execute o script `run.sh` localizado na raiz do projeto para compilar os arquivos fonte e gerar os arquivos `.class` em `bin/`:
+   Execute o script `run.sh` localizado na pasta `scripts/` para compilar os arquivos fonte e gerar os arquivos `.class` em `bin/`:
 
    ```bash
-   ./scripts/run.sh
+   scripts/run.sh
    ```
 3. **Execução**
-   Após a compilação, o jogo será executado automaticamente. Caso queira rodar manualmente, navegue até o diretório `bin/` e execute:
+   Após a compilação, o jogo será executado automaticamente.
 
-   ```bash
-   java -cp . com.ponggame.JogoPong
-   ```
 ---
 
 ## Controles do Jogo
@@ -52,17 +86,17 @@
 
 ## Contribuindo
 
-1. Abra uma **issue** para sugerir melhorias ou relatar bugs
-2. **Fork** o projeto e crie uma branch (`git checkout -b feature/nome-da-feature`)
-3. Realize suas alterações e **commit** (`git commit -m "Adiciona nova feature"`)
-4. **Push** para sua branch (`git push origin feature/nome-da-feature`)
-5. Abra um **Pull Request** para revisão
+1. Abra uma **issue** para sugerir melhorias ou relatar bugs.
+2. **Fork** o projeto e crie uma branch (`git checkout -b feature/nome-da-feature`).
+3. Realize suas alterações e **commit** (`git commit -m "Adiciona nova feature"`).
+4. **Push** para sua branch (`git push origin feature/nome-da-feature`).
+5. Abra um **Pull Request** para revisão.
 
 ---
 
 ## Autoras
 
-🍅 [Rauana Carvalho](https://github.com/rauanacarvalho) e 🍓 [Bruna Valoes](https://github.com/bruvaloes)
-
+- 🍅 [Rauana Carvalho](https://github.com/rauanacarvalho)
+- 🍓 [Bruna Valoes](https://github.com/bruvaloes)
 
 Se gostou do projeto, não esqueça de dar uma estrela! ⭐
